@@ -1,0 +1,39 @@
+<div *ngIf="requirement">
+	<div class="project">
+		<h3>{{requirement.name}}</h3>
+		<div>{{requirement.description}}</div>
+
+		<h4>Reports</h4>
+        <donut-chart [percentage]="23"></donut-chart>
+
+		<h4>Test cases</h4>
+		<div *ngIf="testcases && testcases.length > 0; else noTestCasesBlock">
+			<div *ngFor="let testcase of testcases">
+				<div mdl class="test-step mdl-shadow--2dp">
+
+					<div class="mdl-grid">
+						<div class="mdl-cell mdl-cell--10-col test-case">
+							<a [routerLink]="['testcases', testcase.id]">{{testcase.name}}</a>
+						</div>
+						<div class="mdl-cell mdl-cell--2-col test-step-buttons">
+							<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect" (click)="addTestStep(i)">
+								<i class="material-icons">add</i>
+							</button>
+
+							<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect" (click)="deleteTestStep(i)">
+								<i class="material-icons">delete</i>
+							</button>
+						</div>
+					</div>
+
+					
+				</div>
+			</div>
+		</div>
+		<ng-template #noTestCasesBlock>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="addTestCase()">
+			  Add test case
+			</button>
+		</ng-template>
+	</div>
+</div>

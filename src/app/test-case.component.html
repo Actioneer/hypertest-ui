@@ -1,0 +1,65 @@
+
+
+
+<div *ngIf="case" class="test-case">
+	<h3>{{case.name}}</h3>
+	<div>{{case.description}}</div>
+	<h4>Test steps</h4>
+	<div *ngIf="case.steps && case.steps.length > 0; else noTestStepsBlock" class="test-steps">
+		<div class="">
+			<div *ngFor="let teststep of case.steps; let i = index" class="">
+				<div mdl class="test-step mdl-shadow--2dp">
+					<div class="mdl-grid">
+						<div class="mdl-cell mdl-cell--10-col test-step-inner">
+							<test-step [step]="teststep"></test-step>
+						</div>
+						<div class="mdl-cell mdl-cell--2-col test-step-buttons">
+							<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect" (click)="addTestStep(i)">
+								<i class="material-icons">add</i>
+							</button>
+
+							<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect" (click)="deleteTestStep(i)">
+								<i class="material-icons">delete</i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<ng-template #noTestStepsBlock>
+		<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="addTestStep(-1)">
+		  Add step
+		</button>
+	</ng-template>
+	
+
+	<h3>Assertions</h3>
+	<div *ngIf="case.assertions && case.assertions.length > 0; else noAssertionsBlock" class="test-assertions">
+		<div class="">
+			<div *ngFor="let assertion of case.assertions; let i = index" class="">
+				<div mdl class="test-step mdl-shadow--2dp">
+					<div class="mdl-grid">
+						<div class="mdl-cell mdl-cell--10-col test-step-inner">
+							<test-step [step]="assertion"></test-step>
+						</div>
+						<div class="mdl-cell mdl-cell--2-col test-step-buttons">
+							<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect" (click)="addAssertion(i)">
+								<i class="material-icons">add</i>
+							</button>
+
+							<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect" (click)="deleteAssertion(i)">
+								<i class="material-icons">delete</i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<ng-template #noAssertionsBlock>
+		<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="addAssertion(-1)">
+		  Add assertion
+		</button>
+	</ng-template>
+</div>
