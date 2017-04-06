@@ -1,7 +1,7 @@
 {
-  "name": "angular-quickstart",
+  "name": "hypertest-ui",
   "version": "1.0.0",
-  "description": "QuickStart package.json from the documentation, supplemented with testing support",
+  "description": "Angular 2 based UI for HyperTest",
   "scripts": {
     "build": "tsc -p src/",
     "build:watch": "tsc -p src/ -w",
