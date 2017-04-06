@@ -9,7 +9,6 @@ module.exports.translate = function(load){
   var basePathParts = url.pathname.split('/');
 
   basePathParts.shift();
-  basePathParts.shift();
 
   basePathParts.pop();
   var basePath = basePathParts.join('/');
