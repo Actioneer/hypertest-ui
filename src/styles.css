@@ -54,6 +54,30 @@ circle.successCircle {
   color: #ACEC00;
 }
 
+.editableTitle {
+  font-size: 25pt !important;
+}
+
+.edit-mode {
+  margin-left: -90px;
+}
+
+.fixed-action-btn{
+  position: fixed;
+  right: 23px;
+  bottom: 23px;
+  padding-top: 15px;
+  margin-bottom: 0;
+  z-index: 998;
+}
+
+
+
+
+
+
+
+
 
 
 .demo-avatar {

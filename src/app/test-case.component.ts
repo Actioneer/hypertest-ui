@@ -26,7 +26,6 @@ export class TestCaseComponent implements OnInit {
 	}
 
 	addTestStep(index: number): void {
-		console.log(index);
 		if (index >= 0) {
 			this.case.steps.splice(index + 1, 0, new TestStep());
 		} else {

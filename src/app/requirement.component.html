@@ -1,14 +1,32 @@
 <div *ngIf="requirement">
 	<div class="project">
-		<h3>{{requirement.name}}</h3>
-		<div>{{requirement.description}}</div>
+		<div *ngIf="editableName; else fixedName">
+			<focussed-input [value]="requirement.name" label="Requirement Name" classes="editableTitle" (onEntered)="updateName($event)"></focussed-input>
+		</div>
+		<ng-template #fixedName>
+			<div>
+				<h3 (click)="editName()">
+					{{requirement.name}}
+					<i class="material-icons edit-mode">mode edit</i>
+				</h3>
+			</div>
+		</ng-template>
 
-		<h4>Reports</h4>
-        <donut-chart [percentage]="23"></donut-chart>
+		<div *ngIf="editableDescription; else fixedDescription">
+			<focussed-input [value]="requirement.description" label="Requirement description" (onEntered)="updateDescription($event)"></focussed-input>
+		</div>
+		<ng-template #fixedDescription>
+			<div (click)="editDescription()">
+				<label>{{requirement.description}}</label>
+				<i class="material-icons edit-mode">mode edit</i>
+			</div>
+		</ng-template>
+
+		<donut-chart [percentage]="37"></donut-chart>
 
 		<h4>Test cases</h4>
 		<div *ngIf="testcases && testcases.length > 0; else noTestCasesBlock">
-			<div *ngFor="let testcase of testcases">
+			<div *ngFor="let testcase of testcases; let i = index">
 				<div mdl class="test-step mdl-shadow--2dp">
 
 					<div class="mdl-grid">
@@ -16,24 +34,20 @@
 							<a [routerLink]="['testcases', testcase.id]">{{testcase.name}}</a>
 						</div>
 						<div class="mdl-cell mdl-cell--2-col test-step-buttons">
-							<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect" (click)="addTestStep(i)">
+							<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect" (click)="addTestCase(i)">
 								<i class="material-icons">add</i>
 							</button>
 
-							<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect" (click)="deleteTestStep(i)">
+							<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect" (click)="deleteTestCase(i)">
 								<i class="material-icons">delete</i>
 							</button>
 						</div>
 					</div>
-
-					
 				</div>
 			</div>
 		</div>
-		<ng-template #noTestCasesBlock>
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="addTestCase()">
-			  Add test case
-			</button>
-		</ng-template>
+		<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" (click)="addTestCase()">
+		  Add test case
+		</button>
 	</div>
 </div>

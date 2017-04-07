@@ -1,5 +1,5 @@
-import { Component, OnInit } 		from '@angular/core';
-import { ActivatedRoute, Params } 	from '@angular/router';
+import { Component, OnInit } 				from '@angular/core';
+import { ActivatedRoute, Params, Router } 	from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
 
@@ -17,10 +17,14 @@ export class RequirementComponent implements OnInit {
 	requirement : Requirement ;
 	testcases: TestCase[] = [];
 
+	editableName: boolean = false;
+	editableDescription: boolean = false;
+
 	constructor(
 		private requirementService: RequirementService,
 		private testcaseService: TestCaseService,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private router: Router
 	) {}
 
 	ngOnInit() : void {
@@ -34,4 +38,48 @@ export class RequirementComponent implements OnInit {
 				}
 			});
 	}
+
+	editName(): void {
+		this.editableName = true;
+	}
+
+	editDescription(): void {
+		this.editableDescription = true;
+	}
+
+	updateName(newName: string): void {
+		var trimmedNewName = newName.trim();
+		if (trimmedNewName != '' && this.requirement.name != trimmedNewName) {
+			console.log('updating name to ' + trimmedNewName);
+			this.requirement.name = trimmedNewName;
+			this.requirementService.update(this.requirement);
+		}
+		this.editableName = false;
+	}
+
+	updateDescription(newDescription: string): void {
+		var trimmedNewDescription = newDescription.trim();
+		if (trimmedNewDescription == '') {
+			trimmedNewDescription = 'no description here';
+		}
+		if (this.requirement.description != trimmedNewDescription) {
+			this.requirement.description = trimmedNewDescription;
+			this.requirementService.update(this.requirement);
+		}
+		this.editableDescription = false;
+	}
+
+	addTestCase(): void {
+		this.testcaseService.create('New testcase', this.requirement.id)
+			.then(testcase => this.router.navigate(['testcases', testcase.id], {relativeTo: this.route}));
+	}
+
+	deleteTestCase(index: number): void {
+		var testcase = this.testcases[index];
+		this.testcaseService.delete(testcase);
+
+		this.testcases.splice(index, 1);
+		this.requirement.testcases.splice(index, 1);
+	}
+
 }

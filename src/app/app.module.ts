@@ -20,6 +20,8 @@ import { TestStepComponent } 			from './test-step.component';
 import { TestCaseComponent } 			from './test-case.component';
 import { DonutChartComponent }    from './donut-chart.component';
 
+import { FocussedInputComponent }  from './focussed-input.component';
+
 import { TestCaseService }				from './test-case.service';
 import { ProjectService }				  from './project.service';
 import { RequirementService }     from './requirement.service';
@@ -41,7 +43,9 @@ import { RequirementService }     from './requirement.service';
   	RequirementComponent,
   	TestStepComponent,
   	TestCaseComponent,
-    DonutChartComponent
+    DonutChartComponent,
+
+    FocussedInputComponent
   ],
   providers: [
   	TestCaseService,
